@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"heavy_knight",
+  "name":"Heavy knight",
+  "color":"blue",
+  "health":750,
+  "damage":130,
+  "defence":0.30,
+  "price":1050,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

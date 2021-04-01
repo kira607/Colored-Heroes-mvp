@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"clan_leader",
+  "name":"Clan leader",
+  "color":"purple",
+  "health":800,
+  "damage":150,
+  "defence":0.40,
+  "price":1150,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

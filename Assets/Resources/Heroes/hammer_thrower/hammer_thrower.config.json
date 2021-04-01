@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"hammer_thrower",
+  "name":"Hammer thrower",
+  "color":"blue",
+  "health":600,
+  "damage":170,
+  "defence":0.25,
+  "price":1050,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

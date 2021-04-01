@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"spearman",
+  "name":"Spearman",
+  "color":"red",
+  "defence":0.15,
+  "price":750,
+  "health":600,
+  "damage":120,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

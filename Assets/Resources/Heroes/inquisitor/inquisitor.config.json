@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"inquisitor",
+  "name":"Inquisitor",
+  "color":"purple",
+  "health":950,
+  "damage":170,
+  "defence":0.15,
+  "price":1500,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

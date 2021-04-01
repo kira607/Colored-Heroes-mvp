@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"shield_master",
+  "name":"Shield master",
+  "color":"green",
+  "health":750,
+  "damage":110,
+  "defence":0.25,
+  "price":900,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

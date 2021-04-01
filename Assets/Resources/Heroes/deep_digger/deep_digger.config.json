@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"deep_digger",
+  "name":"Deep digger",
+  "color":"orange",
+  "health":650,
+  "damage":90,
+  "defence":0.15,
+  "price":650,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

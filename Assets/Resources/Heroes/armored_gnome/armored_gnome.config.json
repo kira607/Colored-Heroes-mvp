@@ -1,0 +1,12 @@
+﻿{
+  "metaName":"armored_gnome",
+  "name":"Armored gnome",
+  "color":"red",
+  "health":650,
+  "damage":100,
+  "defence":0.25,
+  "price":650,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}

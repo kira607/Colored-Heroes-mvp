@@ -1,0 +1,12 @@
+{
+  "metaName":"shield_bearer",
+  "name":"Shield Bearer",
+  "color":"orange",
+  "defence":0.15,
+  "price":650,
+  "health":600,
+  "damage":100,
+  "speed":10,
+  "attackSpeed":1,
+  "attackRange":1
+}
