@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using match_board;
 using UnityEngine;
 
 public class Bot : MonoBehaviour

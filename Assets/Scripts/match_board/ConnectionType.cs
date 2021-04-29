@@ -1,10 +1,13 @@
 ﻿
-public enum ConnectionType
+namespace match_board
 {
-    Usual,
-    LineUpDown,
-    LineLeftRight,
-    Bomb,
-    Dimond,
-    NoneOrUndetected,
+    public enum ConnectionType
+    {
+        Usual,
+        LineUpDown,
+        LineLeftRight,
+        Bomb,
+        Dimond,
+        NoneOrUndetected,
+    }
 }

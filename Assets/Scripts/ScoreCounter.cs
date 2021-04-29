@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using match_board;
 
 public class ScoreCounter
 {
@@ -17,6 +18,10 @@ public class ScoreCounter
         };
     }
     
+    /*
+    @breif Count scores according to the list of removed chips.
+    @returns Dictionary of scores per each color.
+    */
     public Dictionary<ChipColor, int> CountScore(ref List<Chip> deadChips)
     {
         ResetScores();
@@ -54,7 +59,7 @@ public class ScoreCounter
             case SuperColor.Bomb:
                 scoreToAdd = Helpers.instance.scorePerBombChip;
                 break;
-            case SuperColor.Dimond:
+            case SuperColor.Diamond:
                 scoreToAdd = Helpers.instance.scorePerDiamondChip;
                 break;
             case SuperColor.None:

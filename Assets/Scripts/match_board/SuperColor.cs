@@ -1,9 +1,12 @@
 ﻿
-public enum SuperColor
+namespace match_board
 {
-    LineUpDown,
-    LineLeftRight,
-    Bomb,
-    Dimond, 
-    None
+    public enum SuperColor
+    {
+        LineUpDown,
+        LineLeftRight,
+        Bomb,
+        Diamond, 
+        None
+    }
 }

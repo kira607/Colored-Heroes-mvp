@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using match_board;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BatlerManager : MonoBehaviour
+public class Batler : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject heroPrefab;
