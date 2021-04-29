@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace match_board
+namespace MatchBoard
 {
     public class CommonConnectionsExtractor
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace match_board
+namespace MatchBoard
 {
     public enum ConnectionType
     {

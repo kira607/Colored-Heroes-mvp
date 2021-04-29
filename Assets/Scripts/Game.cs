@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using match_board;
+using MatchBoard;
 using UnityEngine;
 
 public class Game : MonoBehaviour

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace match_board
+namespace MatchBoard
 {
     public class Helpers : MonoBehaviour
     {

@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace match_board
+namespace MatchBoard
 {
     public class Chip : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace match_board
+namespace MatchBoard
 {
 	[System.Serializable]
 	public class ArrayLayout

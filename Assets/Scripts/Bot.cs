@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using match_board;
+using Batler;
+using MatchBoard;
 using UnityEngine;
 
 public class Bot : MonoBehaviour
 {
+    public float timerOffset = 1.0f;
     private float _timer;
     [SerializeField]
     private Team _team;
@@ -17,7 +19,7 @@ public class Bot : MonoBehaviour
     void Update()
     {
         _timer += Time.deltaTime;
-        if (_timer >= 1.0f)
+        if (_timer >= timerOffset)
         {
             _timer = 0.0f;
             _team.ApplyScore(new Dictionary<ChipColor, int>{{Helpers.instance.GetRandomColor(), 150}});

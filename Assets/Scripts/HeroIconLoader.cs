@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using match_board;
+using HeroesTile;
+using MatchBoard;
 using UnityEngine;
 using UnityEngine.UI;
 

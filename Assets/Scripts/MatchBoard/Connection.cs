@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace match_board
+namespace MatchBoard
 {
     public class Connection
     {

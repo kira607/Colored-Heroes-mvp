@@ -1,5 +1,6 @@
 using System;
-using match_board;
+using HeroesTile;
+using MatchBoard;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public class Hero : MonoBehaviour
     public int attackRange;
     
     // calculated fields
-    public int strength;
+    public int strength; // TODO: remove this parameter
     public int damagePerSecond;
 
     // Init fields
