@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
 namespace MatchBoard
@@ -8,6 +9,7 @@ namespace MatchBoard
     {
         public ArrayLayout boardLayout;
 
+        // TODO: make sprites names and enum
         [Header("UI Elements")]
         public Sprite[] chipsSprites;
         public Sprite[] superChipsSprites;
@@ -23,7 +25,6 @@ namespace MatchBoard
         
         private Board _board;
         private MatchExtractor _matchExtractor;
-        private Helpers _helpers;
 
         private Dictionary<ChipColor, Sprite> _colorSprites;
         private Dictionary<SuperColor, Sprite> _superSprites;
@@ -104,36 +105,45 @@ namespace MatchBoard
 
         private void InitializeFields()
         {
-            _helpers = Helpers.instance;
-            _board = new Board(Width, Height);
-            _matchExtractor = new MatchExtractor(ref _board);
-
-            _listOfChipsToUpdate = new List<Chip>();
-            _finishedUpdatingList = new List<Chip>();
-            _deadChips = new List<Chip>();
-            _flippedChipsList = new List<FlippedChips>();
-
-            _fills = new int[Width];
-
-            _colorSprites = new Dictionary<ChipColor, Sprite>
+            try
             {
-                {ChipColor.Orange, chipsSprites[0]},
-                {ChipColor.Red, chipsSprites[1]},
-                {ChipColor.Green, chipsSprites[2]},
-                {ChipColor.Blue, chipsSprites[3]},
-                {ChipColor.Purple, chipsSprites[4]}
-                // ToDo: Add Unplayable Cell Sprite
-                // {ChipColor.Hole, chipsSprites[5]};
-            };
-            _superSprites = new Dictionary<SuperColor, Sprite>
+                Helpers.Init();
+                _board = new Board(Width, Height);
+                _matchExtractor = new MatchExtractor(ref _board);
+
+                _listOfChipsToUpdate = new List<Chip>();
+                _finishedUpdatingList = new List<Chip>();
+                _deadChips = new List<Chip>();
+                _flippedChipsList = new List<FlippedChips>();
+
+                _fills = new int[Width];
+
+                _colorSprites = new Dictionary<ChipColor, Sprite>
+                {
+                    {ChipColor.Orange, chipsSprites[0]},
+                    {ChipColor.Red, chipsSprites[1]},
+                    {ChipColor.Green, chipsSprites[2]},
+                    {ChipColor.Blue, chipsSprites[3]},
+                    {ChipColor.Purple, chipsSprites[4]}
+                    // ToDo: Add Unplayable Cell Sprite
+                    // {ChipColor.Hole, chipsSprites[5]};
+                };
+                _superSprites = new Dictionary<SuperColor, Sprite>
+                {
+                    {SuperColor.LineUpDown, superChipsSprites[0]},
+                    {SuperColor.LineLeftRight, superChipsSprites[1]},
+                    {SuperColor.Bomb, superChipsSprites[2]},
+                    {SuperColor.Diamond, superChipsSprites[3]}
+                };
+            }
+            catch (Exception e)
             {
-                {SuperColor.LineUpDown, superChipsSprites[0]},
-                {SuperColor.LineLeftRight, superChipsSprites[1]},
-                {SuperColor.Bomb, superChipsSprites[2]},
-                {SuperColor.Diamond, superChipsSprites[3]}
-            };
+                // ignored
+                Time.timeScale = 0.0f;
+            }
         }
-
+        
+        // Initializes board, setting for each cell a random color.
         private void InitializeBoard()
         {
             for(int y = 0; y < Height; ++y)
@@ -143,7 +153,7 @@ namespace MatchBoard
                     var newColor = ChipColor.Hole;
                     if (!boardLayout.rows[y].row[x])
                     {
-                        newColor = Helpers.instance.GetRandomColor();
+                        newColor = Helpers.GetRandomColor();
                     }
                     _board[x, y] = new Cell(newColor, new Point(x, y));
                 }
@@ -162,7 +172,7 @@ namespace MatchBoard
                     while (!_matchExtractor.Extract(new Point(x, y)).Empty())
                     {
                         badColorsToRemove.Add(_board.GetColorAtPoint(currentPoint));
-                        _board.SetColorAtPoint(currentPoint, Helpers.instance.GetAvailableColor(ref badColorsToRemove));
+                        _board.SetColorAtPoint(currentPoint, Helpers.GetAvailableColor(ref badColorsToRemove));
                     }
                 }
             }
@@ -192,7 +202,7 @@ namespace MatchBoard
             Chip chip = newGameObject.GetComponent<Chip>();
             RectTransform rect = newGameObject.GetComponent<RectTransform>();
 
-            rect.anchoredPosition = Helpers.instance.GetPositionFromPoint(point);
+            rect.anchoredPosition = Helpers.GetPositionFromPoint(point);
         
             var color = cell.color;
             var index = cell.index;
@@ -212,7 +222,7 @@ namespace MatchBoard
                 return;
             }
         
-            if (!_helpers.CommonColors().Contains(_board.GetColorAtPoint(two)))
+            if (!Helpers.CommonColors().Contains(_board.GetColorAtPoint(two)))
             {
                 ResetChip(chipOne);
                 return;
@@ -344,13 +354,13 @@ namespace MatchBoard
         private void ReviveChip(int column, Point point, Point pointOfRevive = null)
         {
             var fallPoint = new Point(column, (-1 - _fills[column]));
-            var newColor = _helpers.GetRandomColor();
+            var newColor = Helpers.GetRandomColor();
             Chip newChip;
             if (_deadChips.Count > 0)
             {
                 var revivedChip = _deadChips[0];
                 revivedChip.gameObject.SetActive(true);
-                revivedChip.rectTransform.anchoredPosition = _helpers.GetPositionFromPoint(fallPoint);
+                revivedChip.rectTransform.anchoredPosition = Helpers.GetPositionFromPoint(fallPoint);
                 revivedChip.Initialize(newColor, point, _colorSprites[newColor]);
                 newChip = revivedChip;
                             
@@ -361,7 +371,7 @@ namespace MatchBoard
                 GameObject newGameObject = Instantiate(chipPrefab, matchBoard);
                 Chip chip = newGameObject.GetComponent<Chip>();
                 RectTransform rect = newGameObject.GetComponent<RectTransform>();
-                rect.anchoredPosition = _helpers.GetPositionFromPoint(fallPoint);
+                rect.anchoredPosition = Helpers.GetPositionFromPoint(fallPoint);
                 newChip = chip;
             }
             newChip.Initialize(newColor, point, _colorSprites[newColor]);
@@ -377,7 +387,7 @@ namespace MatchBoard
             Chip newSuperChip = _deadChips[0];
 
             newSuperChip.gameObject.SetActive(true);
-            newSuperChip.rectTransform.anchoredPosition = _helpers.GetPositionFromPoint(revivePoint);
+            newSuperChip.rectTransform.anchoredPosition = Helpers.GetPositionFromPoint(revivePoint);
             var color = ChipColor.Multicolor;
 
             SuperColor superColor;

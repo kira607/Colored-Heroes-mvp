@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Common;
 using MatchBoard;
 
 public class ScoreCounter
@@ -19,7 +20,7 @@ public class ScoreCounter
     }
     
     /*
-    @breif Count scores according to the list of removed chips.
+    @brief Count scores according to the list of removed chips.
     @returns Dictionary of scores per each color.
     */
     public Dictionary<ChipColor, int> CountScore(ref List<Chip> deadChips)
@@ -34,9 +35,9 @@ public class ScoreCounter
 
     private void CountScores(Chip chip)
     {
-        if (Helpers.instance.CommonColors().Contains(chip.color))
+        if (Helpers.CommonColors().Contains(chip.color))
         {
-            _scoreDictionary[chip.color] += Helpers.instance.scorePerOneChip;
+            _scoreDictionary[chip.color] += 1;//Helpers.scorePerOneChip;
         }
         else if (chip.color == ChipColor.Multicolor)
         {
@@ -46,7 +47,7 @@ public class ScoreCounter
 
     private void CountSuperScores(Chip chip)
     {
-        if (!Helpers.instance.CommonColors().Contains(chip.alternateColor))
+        if (!Helpers.CommonColors().Contains(chip.alternateColor))
             return;
         
         int scoreToAdd;
@@ -54,13 +55,13 @@ public class ScoreCounter
         {
             case SuperColor.LineUpDown:
             case SuperColor.LineLeftRight:
-                scoreToAdd = Helpers.instance.scorePerRayChip;
+                scoreToAdd = 1;//Helpers.scorePerRayChip;
                 break;
             case SuperColor.Bomb:
-                scoreToAdd = Helpers.instance.scorePerBombChip;
+                scoreToAdd = 1;//Helpers.scorePerBombChip;
                 break;
             case SuperColor.Diamond:
-                scoreToAdd = Helpers.instance.scorePerDiamondChip;
+                scoreToAdd = 1;//Helpers.scorePerDiamondChip;
                 break;
             case SuperColor.None:
                 scoreToAdd = 0;

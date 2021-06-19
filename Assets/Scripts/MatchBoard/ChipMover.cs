@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 
 namespace MatchBoard
 {
-    public class ChipMovementController : MonoBehaviour
+    public class ChipMover : MonoBehaviour
     {
-        public static ChipMovementController instance;
+        public static ChipMover instance;
     
         private Chip _currentMovingChip;
         private Point _newIndex;
@@ -46,7 +47,7 @@ namespace MatchBoard
             }
             _newIndex.Add(newIndexAdd);
 
-            Vector2 newPosition = Helpers.instance.GetPositionFromPoint(_currentMovingChip.index);
+            Vector2 newPosition = Helpers.GetPositionFromPoint(_currentMovingChip.index);
             if (!_newIndex.Equals(_currentMovingChip.index))
             {
                 newPosition += Point.GetMultiplication(

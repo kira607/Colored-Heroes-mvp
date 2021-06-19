@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HeroesTile;
 using MatchBoard;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,11 +11,9 @@ namespace Batler
     {
         [Header("Prefabs")]
         public GameObject heroPrefab;
-        public GameObject heroIconPrefab;
 
         [Header("GameFields")] 
         public GameObject batler;
-        public RectTransform heroes;
 
         [Header("Castles")] 
         public GameObject playerCastle;
@@ -36,10 +35,9 @@ namespace Batler
 
         private float _centerCoordinate;
 
-        public void Init(GameObject pbatler, RectTransform pheroes, GameObject pplayerCastle, GameObject penemyCastle)
+        public void Init(GameObject pbatler, GameObject pplayerCastle, GameObject penemyCastle)
         {
             batler = pbatler;
-            heroes = pheroes;
             playerCastle = pplayerCastle;
             enemyCastle = penemyCastle;
             MyAwake();
@@ -52,7 +50,6 @@ namespace Batler
             _heroIconLoader = gameObject.AddComponent<HeroIconLoader>();
         
             _heroLoader.Init(heroPrefab, batler.GetComponent<RectTransform>());
-            _heroIconLoader.Init(heroIconPrefab, heroes);
 
             _playerTeam = gameObject.AddComponent<Team>();
             _enemyTeam = gameObject.AddComponent<Team>();
@@ -71,6 +68,7 @@ namespace Batler
 
         public void FixedUpdate()
         {
+            return;
             _time += Time.deltaTime;
             var enemySpawnList = _bot.GetSpawnList();
         

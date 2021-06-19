@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
 
 namespace MatchBoard
 {
@@ -14,7 +15,7 @@ namespace MatchBoard
         public CommonConnectionsExtractor(ref Board board)
         {
             _boardRef = board;
-            _basicDirections = Helpers.instance.BasicDirections();
+            _basicDirections = Helpers.BasicDirections();
         }
 
         public Connection Extract(Point point)
@@ -137,7 +138,7 @@ namespace MatchBoard
         public SuperConnectionsExtractor(ref Board board)
         {
             _boardRef = board;
-            _basicDirections = Helpers.instance.BasicDirections();
+            _basicDirections = Helpers.BasicDirections();
         }
 
         public Connection Extract(Point basePoint, Point flippedPoint = null)
@@ -240,7 +241,7 @@ namespace MatchBoard
                     connection = ExtractForBomb(basePoint);
                     break;
                 case SuperColor.Diamond:
-                    connection = ExtractForDimond(basePoint, flippedPoint is null ? Helpers.instance.GetRandomColor() : 
+                    connection = ExtractForDimond(basePoint, flippedPoint is null ? Helpers.GetRandomColor() : 
                         _boardRef.GetColorAtPoint(flippedPoint));
                     break;
                 case SuperColor.None:

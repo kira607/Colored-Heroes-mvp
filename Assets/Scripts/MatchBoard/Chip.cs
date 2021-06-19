@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -44,7 +45,7 @@ namespace MatchBoard
 
         public void ResetPosition()
         {
-            position = Helpers.instance.GetPositionFromPoint(index);
+            position = Helpers.GetPositionFromPoint(index);
         }
 
         public void SetIndex(Point newIndex)
@@ -73,12 +74,12 @@ namespace MatchBoard
         public void OnPointerDown(PointerEventData eventData)
         {
             if (_updating) return;
-            ChipMovementController.instance.MoveChip(this);
+            ChipMover.instance.MoveChip(this);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            ChipMovementController.instance.DropChip();
+            ChipMover.instance.DropChip();
         }
     }
 }

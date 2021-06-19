@@ -1,4 +1,5 @@
 using System;
+using Common;
 using HeroesTile;
 using MatchBoard;
 using UnityEngine;
@@ -36,7 +37,7 @@ public class Hero : MonoBehaviour
     {
         metaName = info.metaName;
         heroName = info.name;
-        color = Helpers.instance.ConvertStringIntoColor(info.color);
+        color = Helpers.ConvertStringIntoColor(info.color);
         defence = info.defence;
         price = info.price;
         health = info.health;

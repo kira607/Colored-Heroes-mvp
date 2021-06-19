@@ -5,6 +5,16 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public HeroesTile.HeroesTile heroesTile;
+    public MatchBoard.MatchBoard matchBoard;
+    public Batler.Batler batler;
+    
+    [Header("Scores settings")]
+    public int scorePerOneChip = 50;
+    public int scorePerRayChip = 100;
+    public int scorePerBombChip = 100;
+    public int scorePerDiamondChip = 200;
+    
     private readonly string[] _playerHeroesMetaNames =
     {
         "shield_bearer", 

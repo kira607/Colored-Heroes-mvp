@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Batler;
+using Common;
 using MatchBoard;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class Bot : MonoBehaviour
         if (_timer >= timerOffset)
         {
             _timer = 0.0f;
-            _team.ApplyScore(new Dictionary<ChipColor, int>{{Helpers.instance.GetRandomColor(), 150}});
+            _team.ApplyScore(new Dictionary<ChipColor, int>{{Helpers.GetRandomColor(), 150}});
         }
     }
 
