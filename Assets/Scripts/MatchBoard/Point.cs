@@ -1,21 +1,35 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace MatchBoard
 {
-    [System.Serializable]
+    [Serializable]
     public class Point //: IComparable<Point>
     {
         public int x;
         public int y;
 
-        public string Str()
-        {
-            return "[" + x + ", " + y + "]";
-        }
         public Point(int newX, int newY)
         {
             x = newX;
             y = newY;
+        }
+
+        public static Point Zero => new Point(0, 0);
+
+        public static Point One => new Point(1, 1);
+
+        public static Point Up => new Point(0, 1);
+
+        public static Point Down => new Point(0, -1);
+
+        public static Point Left => new Point(-1, 0);
+
+        public static Point Right => new Point(1, 0);
+
+        public string Str()
+        {
+            return "[" + x + ", " + y + "]";
         }
 
         public void Multiply(int multiplyer)
@@ -37,17 +51,17 @@ namespace MatchBoard
 
         public bool Equals(Point p)
         {
-            return (x == p.x && y == p.y);
+            return x == p.x && y == p.y;
         }
 
         public static Point GetFromVector(Vector2 v)
         {
-            return new Point((int)v.x, (int)v.y);
+            return new Point((int) v.x, (int) v.y);
         }
 
         public static Point GetFromVector(Vector3 v)
         {
-            return new Point((int)v.x, (int)v.y);
+            return new Point((int) v.x, (int) v.y);
         }
 
         public static Point GetMultiplication(Point point, int multiplyer)
@@ -63,36 +77,6 @@ namespace MatchBoard
         public static Point GetClone(Point point)
         {
             return new Point(point.x, point.y);
-        }
-
-        public static Point Zero
-        {
-            get { return new Point(0, 0); }
-        }
-
-        public static Point One
-        {
-            get { return new Point(1, 1); }
-        }
-
-        public static Point Up
-        {
-            get { return new Point(0, 1); }
-        }
-
-        public static Point Down
-        {
-            get { return new Point(0, -1); }
-        }
-
-        public static Point Left
-        {
-            get { return new Point(-1, 0); }
-        }
-
-        public static Point Right
-        {
-            get { return new Point(1, 0); }
         }
 
         // public int CompareTo(Point other)

@@ -1,85 +1,121 @@
-﻿using Common;
+﻿using System;
+using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace MatchBoard
 {
-    public class Chip : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class Chip : MonoBehaviour
     {
-        public ChipColor color;
-        public SuperColor superColor;
-        public Point index;
-        public ChipColor alternateColor;
-    
-        public Image image;
-        private bool _updating;
-    
-        [HideInInspector] public Vector2 position;
-        [HideInInspector] public RectTransform rectTransform;
+        public int row;
+        public int column;
 
-        public void Initialize(ChipColor newColor, Point newIndex, Sprite sprite, SuperColor newSuperColor = SuperColor.None)
-        {
-            color = newColor;
-            superColor = newSuperColor;
-            index = newIndex;
-            rectTransform = GetComponent<RectTransform>();
-            image = GetComponent<Image>();
-            image.sprite = sprite;
-            // position = rectTransform.anchoredPosition;
-        }
-
-        public bool UpdateChipAndGetIfUpdated()
-        {
-            if (Vector3.Distance(rectTransform.anchoredPosition, position) > 1)
-            {
-                MoveTo(position);
-                _updating = true;
-                return true;
-            }
+        public int targetX;
+        public int targetY;
         
-            rectTransform.anchoredPosition = position;
-            _updating = false;
-            return false;
+        private MatchBoard _board;
+        private GameObject _otherChip;
+        
+        private Vector2 _touchPosition;
+        private Vector2 _dropPosition;
+        public float swipeAngle = 0;
+
+        private Vector2 tempPosition;
+
+        private void Start()
+        {
+            _board = FindObjectOfType<MatchBoard>();
+            var position = transform.position;
+            targetX = (int) position.x;
+            targetY = (int) position.y;
+            row = targetY;
+            column = targetX;
+            
         }
 
-        public void ResetPosition()
+        private void Update()
         {
-            position = Helpers.GetPositionFromPoint(index);
+            targetX = column;
+            targetY = row;
+            if (Mathf.Abs(targetX - transform.position.x) > .1)
+            {
+                // Move to target
+                var position = transform.position;
+                tempPosition = new Vector2(targetX, position.y);
+                transform.position = Vector2.Lerp(position, tempPosition, .4f);
+            }
+            else
+            {
+                // Set position directly
+                var transform1 = transform;
+                tempPosition = new Vector2(targetX, transform1.position.y);
+                transform1.position = tempPosition;
+                _board.chips[column, row] = gameObject;
+            }
+            if (Mathf.Abs(targetY - transform.position.y) > .1)
+            {
+                // Move to target
+                var position = transform.position;
+                tempPosition = new Vector2(position.x, targetY);
+                transform.position = Vector2.Lerp(position, tempPosition, .4f);
+            }
+            else
+            {
+                // Set position directly
+                var transform1 = transform;
+                tempPosition = new Vector2(transform1.position.x, targetY);
+                transform1.position = tempPosition;
+                _board.chips[column, row] = gameObject;
+            }
         }
 
-        public void SetIndex(Point newIndex)
+        private void OnMouseDown()
         {
-            index = newIndex;
-            ResetPosition();
-            UpdateName();
+            if (Camera.main is { }) _touchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
 
-        public void MoveTo(Vector2 newPosition)
+        private void OnMouseUp()
         {
-            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, newPosition,
-                Time.deltaTime * Helpers.CellSize / 8);
-        }
-    
-        public void Move(Vector2 newPosition)
-        {
-            rectTransform.anchoredPosition += newPosition * Time.deltaTime * Helpers.CellSize / 4;
+            if (Camera.main is { }) _dropPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            CalculateAngle();
         }
 
-        private void UpdateName()
+        private void CalculateAngle()
         {
-            transform.name = "Chip [" + index.x + ", " + index.y + "]";
-        }
-    
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            if (_updating) return;
-            ChipMover.instance.MoveChip(this);
+            swipeAngle = Mathf.Atan2(_dropPosition.y - _touchPosition.y, _dropPosition.x - _touchPosition.x) * 180 / Mathf.PI;
+            Debug.Log(swipeAngle);
+            Move();
         }
 
-        public void OnPointerUp(PointerEventData eventData)
+        void Move()
         {
-            ChipMover.instance.DropChip();
+            if (swipeAngle > -45 && swipeAngle <= 45 && column < _board.boardSettings.width)
+            {
+                // Right swipe
+                _otherChip = _board.chips[column + 1, row];
+                _otherChip.GetComponent<Chip>().column -= 1;
+                column += 1;
+            }
+            else if (swipeAngle > 45 && swipeAngle <= 135 && row < _board.boardSettings.height)
+            {
+                // Up swipe
+                _otherChip = _board.chips[column, row + 1];
+                _otherChip.GetComponent<Chip>().row -= 1;
+                row += 1;
+            }
+            else if ((swipeAngle > 135 || swipeAngle <= -135) && column > 0)
+            {
+                // Left swipe
+                _otherChip = _board.chips[column - 1, row];
+                _otherChip.GetComponent<Chip>().column += 1;
+                column -= 1;
+            }
+            else if (swipeAngle > -135 && swipeAngle <= -45 && row > 0)
+            {
+                // Down swipe
+                _otherChip = _board.chips[column, row - 1];
+                _otherChip.GetComponent<Chip>().row += 1;
+                row -= 1;
+            }
         }
     }
 }
