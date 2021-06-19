@@ -1,4 +1,7 @@
 using System;
+using Common;
+using HeroesTile;
+using MatchBoard;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +20,7 @@ public class Hero : MonoBehaviour
     public int attackRange;
     
     // calculated fields
-    public int strength;
+    public int strength; // TODO: remove this parameter
     public int damagePerSecond;
 
     // Init fields
@@ -34,7 +37,7 @@ public class Hero : MonoBehaviour
     {
         metaName = info.metaName;
         heroName = info.name;
-        color = Helpers.instance.ConvertStringIntoColor(info.color);
+        color = Helpers.ConvertStringIntoColor(info.color);
         defence = info.defence;
         price = info.price;
         health = info.health;
